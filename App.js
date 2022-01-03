@@ -1,6 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import { StyleSheet, Switch, TextInput, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  Image,
+  ImagePickerIOS,
+  StyleSheet,
+  Switch,
+  TextInput,
+  View,
+} from "react-native";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import Card from "./app/components/Card";
@@ -17,10 +24,29 @@ import AppPicker from "./app/components/AppPicker";
 import LoginScreen from "./app/screens/LoginScreen";
 import ListingEditScreen from "./app/components/ListingEditScreen";
 
+import * as ImagePicker from "expo-image-picker";
+import ImageInput from "./app/components/ImageInput";
+import AppButton from "./app/components/AppButton";
+import ImageInputList from "./app/components/ImageInputList";
+
 export default function App() {
+  const [imageUris, setImageUris] = useState([]);
+
+  const handleAdd = (uri) => {
+    setImageUris([...imageUris, uri]);
+  };
+
+  const handleRemove = (uri) => {
+    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
+  };
+
   return (
     <Screen>
-      <ListingEditScreen />
+      <ImageInputList
+        imageUris={imageUris}
+        onAddImage={handleAdd}
+        onRemoveImage={handleRemove}
+      />
     </Screen>
   );
 }
