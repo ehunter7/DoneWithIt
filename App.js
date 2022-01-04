@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Switch,
   TextInput,
+  Text,
   View,
 } from "react-native";
 
@@ -29,24 +30,32 @@ import ImageInput from "./app/components/ImageInput";
 import AppButton from "./app/components/AppButton";
 import ImageInputList from "./app/components/ImageInputList";
 
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+const Tweets = () => (
+  <Screen>
+    <Text>Tweets</Text>
+  </Screen>
+);
+
+const TweetDetails = () => (
+  <Screen>
+    <Text>Tweet Details</Text>
+  </Screen>
+);
+
+const Stack = createNativeStackNavigator();
+const StackNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Tweets" component={Tweets} />
+    <Stack.Screen name="TweetDetails" component={TweetDetails} />
+  </Stack.Navigator>
+);
+
 export default function App() {
-  const [imageUris, setImageUris] = useState([]);
-
-  const handleAdd = (uri) => {
-    setImageUris([...imageUris, uri]);
-  };
-
-  const handleRemove = (uri) => {
-    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
-  };
-
   return (
-    <Screen>
-      <ImageInputList
-        imageUris={imageUris}
-        onAddImage={handleAdd}
-        onRemoveImage={handleRemove}
-      />
-    </Screen>
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
   );
 }
