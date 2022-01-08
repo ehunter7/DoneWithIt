@@ -6,7 +6,9 @@ import {
   StyleSheet,
   Switch,
   TextInput,
+  Text,
   View,
+  Button,
 } from "react-native";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
@@ -29,24 +31,48 @@ import ImageInput from "./app/components/ImageInput";
 import AppButton from "./app/components/AppButton";
 import ImageInputList from "./app/components/ImageInputList";
 
-export default function App() {
-  const [imageUris, setImageUris] = useState([]);
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
-  const handleAdd = (uri) => {
-    setImageUris([...imageUris, uri]);
-  };
-
-  const handleRemove = (uri) => {
-    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
-  };
-
+const Link = () => {
+  const navigation = useNavigation();
   return (
-    <Screen>
-      <ImageInputList
-        imageUris={imageUris}
-        onAddImage={handleAdd}
-        onRemoveImage={handleRemove}
-      />
-    </Screen>
+    <Button
+      title="Click"
+      onPress={() => navigation.navigate("TweetDetails", { id: 1 })}
+    />
+  );
+};
+
+const Tweets = ({ navigation }) => (
+  <Screen>
+    <Text>Tweets</Text>
+    <Link />
+  </Screen>
+);
+
+const TweetDetails = ({ route }) => (
+  <Screen>
+    <Text>Tweet Details {route.params.id}</Text>
+  </Screen>
+);
+
+const Stack = createNativeStackNavigator();
+const StackNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Tweets" component={Tweets} />
+    <Stack.Screen
+      name="TweetDetails"
+      component={TweetDetails}
+      // options={({ route }) => ({ title: route.params.id })}
+    />
+  </Stack.Navigator>
+);
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
   );
 }
