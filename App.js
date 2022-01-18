@@ -85,15 +85,15 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => (
   <Tab.Navigator>
-    <Tab.Screen name="Feed" component={Tweets} />
-    <Tab.Screen name="Account" component={Account} />
+    <Tab.Screen name="Tweets" component={Tweets} />
+    <Tab.Screen name="TweetDetails" component={TweetDetails} />
   </Tab.Navigator>
 );
 
 export default function App() {
   return (
     <NavigationContainer>
-      <TabNavigator />
+      <StackNavigator />
     </NavigationContainer>
   );
 }
