@@ -30,10 +30,12 @@ import * as ImagePicker from "expo-image-picker";
 import ImageInput from "./app/components/ImageInput";
 import AppButton from "./app/components/AppButton";
 import ImageInputList from "./app/components/ImageInputList";
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import NavigationTheme from "./app/navigation/NavigationTheme";
 
 const Link = () => {
   const navigation = useNavigation();
@@ -54,7 +56,7 @@ const Tweets = ({ navigation }) => (
 
 const TweetDetails = ({ route }) => (
   <Screen>
-    <Text>Tweet Details {route.params.id}</Text>
+    <Text>Tweet Details</Text>
   </Screen>
 );
 
@@ -84,16 +86,31 @@ const Account = () => (
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => (
-  <Tab.Navigator>
-    <Tab.Screen name="Tweets" component={Tweets} />
-    <Tab.Screen name="TweetDetails" component={TweetDetails} />
+  <Tab.Navigator
+    tabBarOptions={{
+      activeBackgroundColor: "tomato",
+      activeTintColor: "white",
+      inactiveBackgroundColor: "#eee",
+      inactiveTintColor: "black",
+    }}
+  >
+    <Tab.Screen
+      options={{
+        tabBarIcon: ({ size, color }) => (
+          <MaterialCommunityIcons name="home" size={size} color={color} />
+        ),
+      }}
+      name="Tweets"
+      component={StackNavigator}
+    />
+    <Tab.Screen name="Account" component={Account} />
   </Tab.Navigator>
 );
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StackNavigator />
+    <NavigationContainer theme={NavigationTheme}>
+      <AuthNavigator />
     </NavigationContainer>
   );
 }
