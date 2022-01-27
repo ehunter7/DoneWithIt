@@ -36,6 +36,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import NavigationTheme from "./app/navigation/NavigationTheme";
+import AppNavigator from "./app/navigation/AppNavigator";
 
 const Link = () => {
   const navigation = useNavigation();
@@ -110,7 +111,7 @@ const TabNavigator = () => (
 export default function App() {
   return (
     <NavigationContainer theme={NavigationTheme}>
-      <AuthNavigator />
+      <AppNavigator />
     </NavigationContainer>
   );
 }
